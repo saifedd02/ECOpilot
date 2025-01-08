@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - DigiGreenPilot</title>
+    <style>
+        :root {
+            --gradient-1: #23d5ab;
+            --gradient-2: #23a6d5;
+            --dark: #004d40;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #23d5ab, #23a6d5, #23d5ab, #23a6d5);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-form {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e8f5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--gradient-1);
+            box-shadow: 0 0 0 3px rgba(35, 213, 171, 0.1);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(35, 213, 171, 0.2);
+        }
+
+        .upload-area {
+            border: 2px dashed #e8f5e9;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--gradient-1);
+            background: rgba(35, 213, 171, 0.1);
+        }
+
+        .preview-image {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            padding: 15px;
+            background: #4caf50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="seite1/Dateipload.html">
+            <img src="https://digi-green-pilot.de/wp-content/uploads/2023/10/DGP-Logo-1024x438.png" alt="DigiGreen Pilot Logo">
+        </a>
+        
+        <nav>
+            <a href="seite1/Dateipload.html" ><i class="fas fa-poll"></i> Umfrage</a>
+            <a href="livecalc.html"><i class="fas fa-poll"></i> Live Calculator</a>
+            <a href="Dashboard.html" ><i class="fas fa-leaf"></i> Dashboard</a>
+            <a href="https://moodle.digitalekompetenzen.org/login/index.php#module-483"><i class="fas fa-envelope"></i> Lernplatform</a>
+            <a href="Meinprofil.html"class="active"><i class="fas fa-user"></i> Mein Profil</a>
+        </nav>
+    
+     </header>
+
+    <div id="message" class="message" style="display: none;"></div>
+<!-- CSS für Nachrichten hinzufügen -->
+<style>
+    /* Header Styles */
+header {
+    background: linear-gradient(90deg, #004d40, #00796b);
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+header img {
+    height: 45px;
+    transition: transform 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.05);
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+header a i {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+header a:hover {
+    background: rgba(165, 214, 167, 0.15);
+    color: #a5d6a7;
+    transform: translateY(-2px);
+}
+
+header a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #a5d6a7;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+header a:hover::after {
+    width: 80%;
+}
+
+header a.active {
+    background: rgba(165, 214, 167, 0.2);
+    color: #a5d6a7;
+}
+
+header a[href="Dashboard.html"] {
+    background: rgba(35, 213, 171, 0.15);
+    border: 1px solid rgba(35, 213, 171, 0.3);
+}
+
+header a[href="Dashboard.html"]:hover {
+    background: rgba(35, 213, 171, 0.25);
+    border-color: rgba(35, 213, 171, 0.5);
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    header a {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    header img {
+        height: 35px;
+    }
+
+    @media (max-width: 480px) {
+        header a span {
+            display: none;
+        }
+        
+        header a i {
+            font-size: 20px;
+        }
+    }
+}
+.message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.message.success {
+    background: rgba(46, 204, 113, 0.2);
+    border: 1px solid #2ecc71;
+    color: #27ae60;
+}
+
+.message.error {
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    color: #c0392b;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.drag-over {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: var(--gradient-1) !important;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+</style>
+    <div class="profile-form">
+        <div id="successMessage" class="success-message"></div>
+        <form id="profileForm">
+            <div class="form-group">
+                <label>Benutzername (aus Login)</label>
+                <input type="text" id="username" readonly>
+            </div>
+
+            <div class="form-group">
+                <div class="upload-area" id="uploadArea">
+                    <p>Profilbild hochladen (klicken oder ziehen)</p>
+                    <input type="file" id="profileImage" accept="image/*" hidden>
+                    <img id="imagePreview" class="preview-image" style="display: none;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Position</label>
+                <input type="text" id="position" required>
+            </div>
+
+            <div class="form-group">
+                <label>Unternehmen</label>
+                <input type="text" id="company" required>
+            </div>
+
+            <div class="form-group">
+                <label>Abteilung</label>
+                <input type="text" id="department" required>
+            </div>
+
+            <button type="submit">Profil speichern</button>
+        </form>
+    </div>
+
+    <script>
+// Verbesserte Version des Scripts
+document.addEventListener('DOMContentLoaded', function() {
+   const profileForm = {
+       init() {
+           this.loadUserData();
+           this.setupImageUpload();
+           this.setupFormValidation();
+           this.loadExistingProfile();
+       },
+
+       loadUserData() {
+    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+    const usernameField = document.getElementById('username');
+
+    if (userData.username) {
+        usernameField.value = userData.username;
+    } else {
+        // Optional: Nutzer informieren, dass ein Login erforderlich ist
+        usernameField.value = 'Gast';
+    }
+},
+
+       setupImageUpload() {
+           const uploadArea = document.getElementById('uploadArea');
+           const fileInput = document.getElementById('profileImage');
+           const preview = document.getElementById('imagePreview');
+
+           uploadArea.onclick = () => fileInput.click();
+           
+           uploadArea.ondragover = (e) => {
+               e.preventDefault();
+               uploadArea.classList.add('drag-over');
+           };
+           
+           uploadArea.ondragleave = () => uploadArea.classList.remove('drag-over');
+           
+           uploadArea.ondrop = (e) => {
+               e.preventDefault();
+               uploadArea.classList.remove('drag-over');
+               this.handleImageUpload(e.dataTransfer.files[0]);
+           };
+           
+           fileInput.onchange = (e) => this.handleImageUpload(e.target.files[0]);
+       },
+
+       handleImageUpload(file) {
+           if (!file || !file.type.startsWith('image/')) {
+               this.showMessage('Bitte wählen Sie ein gültiges Bildformat', 'error');
+               return;
+           }
+
+           const reader = new FileReader();
+           reader.onload = (e) => {
+               const preview = document.getElementById('imagePreview');
+               preview.src = e.target.result;
+               preview.style.display = 'block';
+               this.tempImageData = e.target.result;
+           };
+           reader.readAsDataURL(file);
+       },
+
+       setupFormValidation() {
+           const form = document.getElementById('profileForm');
+           form.onsubmit = (e) => {
+               e.preventDefault();
+               this.saveProfile();
+           };
+
+           // Real-time Validierung
+           const inputs = form.querySelectorAll('input[required]');
+           inputs.forEach(input => {
+               input.oninput = () => this.validateField(input);
+           });
+       },
+
+       validateField(input) {
+           let isValid = true;
+           const errorDisplay = input.nextElementSibling;
+
+           if (input.type === 'email') {
+               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+               isValid = emailRegex.test(input.value);
+           } else {
+               isValid = input.value.trim().length > 0;
+           }
+
+           if (!isValid) {
+               if (!errorDisplay || !errorDisplay.classList.contains('error-message')) {
+                   const error = document.createElement('div');
+                   error.className = 'error-message';
+                   error.textContent = input.type === 'email' ? 
+                       'Bitte geben Sie eine gültige E-Mail-Adresse ein' : 
+                       'Dieses Feld ist erforderlich';
+                   input.parentNode.insertBefore(error, input.nextSibling);
+               }
+           } else if (errorDisplay && errorDisplay.classList.contains('error-message')) {
+               errorDisplay.remove();
+           }
+
+           return isValid;
+       },
+
+       loadExistingProfile() {
+           const profile = JSON.parse(localStorage.getItem('profileData'));
+           if (profile) {
+               Object.keys(profile).forEach(key => {
+                   const element = document.getElementById(key);
+                   if (element) {
+                       element.value = profile[key];
+                   }
+               });
+
+               if (profile.image) {
+                   const preview = document.getElementById('imagePreview');
+                   preview.src = profile.image;
+                   preview.style.display = 'block';
+                   this.tempImageData = profile.image;
+               }
+           }
+       },
+
+       saveProfile() {
+           const form = document.getElementById('profileForm');
+           if (!form.checkValidity()) {
+               this.showMessage('Bitte füllen Sie alle Pflichtfelder aus', 'error');
+               return;
+           }
+
+           const profileData = {
+               username: document.getElementById('username').value,
+               name: document.getElementById('name').value,
+               email: document.getElementById('email').value,
+               position: document.getElementById('position').value,
+               company: document.getElementById('company').value,
+               department: document.getElementById('department').value,
+               image: this.tempImageData
+           };
+
+           try {
+               localStorage.setItem('profileData', JSON.stringify(profileData));
+               this.showMessage('Profil erfolgreich gespeichert!', 'success');
+           } catch (error) {
+               this.showMessage('Fehler beim Speichern des Profils', 'error');
+               console.error('Speicherfehler:', error);
+           }
+       },
+
+       showMessage(message, type) {
+           const messageElement = document.getElementById('message');
+           messageElement.textContent = message;
+           messageElement.className = `message ${type}`;
+           messageElement.style.display = 'block';
+           setTimeout(() => messageElement.style.display = 'none', 3000);
+       }
+   };
+
+   profileForm.init();
+});
+    </script>
+<style>
+    .logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 1000;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+</style>
+
+
+<!-- HTML für den Logout-Button -->
+<button onclick="logout()" class="logout-btn">Abmelden</button>
+
+<!-- JavaScript für die Logout-Funktion -->
+<script>
+function logout() {
+    // Session und Login-Status zurücksetzen
+    sessionStorage.clear();
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('currentUser');
+    
+    // Animation beim Logout
+    document.body.classList.add('fade-out');
+    
+    // Nach der Animation zur Login-Seite weiterleiten
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 600);
+}
+</script>
+<style>
+  /* Verbesserte Variablen */
+:root {
+    --primary: #23d5ab;
+    --secondary: #23a6d5;
+    --dark: #004d40;
+    --light: #e8f5e9;
+    --success: #4caf50;
+    --white: rgba(255, 255, 255, 0.95);
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Verbesserte Animationen */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Body Styles */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, var(--primary), var(--secondary));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(90deg, var(--dark), #00796b);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Form Styles */
+.profile-form {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px var(--shadow);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Input Styles */
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--light);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(35, 213, 171, 0.1);
+    outline: none;
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(35, 213, 171, 0.2);
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--light);
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-area:hover {
+    border-color: var(--primary);
+    background: rgba(35, 213, 171, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-form {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    nav {
+        gap: 1rem;
+    }
+
+    header {
+        padding: 1rem;
+    }
+}
+
+/* Abmelde-Button */
+.logout-btn {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    z-index: 1000;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}  
+</style>
+</body>
+</html>

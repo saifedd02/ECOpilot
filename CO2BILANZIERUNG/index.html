@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DigiGreenPilot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #2ecc71, #27ae60, #16a085, #1abc9c);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: Arial, sans-serif;
+            perspective: 1000px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .container:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+            transform: translateZ(30px);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .header-text {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 15px rgba(46, 204, 113, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .info a {
+            color: #27ae60;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .info a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .info a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Füge dies in dein <style> oder deine CSS-Datei ein */
+
+/* Animations-Dauer nach Wunsch anpassen (hier 600ms) */
+.fade-out {
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* Optional: Falls du beim Eintritt ebenfalls eine Animation möchtest */
+.fade-in {
+  animation: fadeIn 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <img src="https://digi-green-pilot.de/wp-content/uploads/2023/10/DGP-Logo-1024x438.png" alt="DigiGreen Pilot Logo" class="logo">
+            <div class="header-text">
+                <h1>Willkommen beim DigiGreenPilot</h1>
+                <p>Bitte melden Sie sich an, um Ihre CO₂-Bilanz zu verwalten.</p>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Benutzername" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Passwort" required>
+                </div>
+                <button type="submit" class="btn">Anmelden</button>
+            </form>
+            <p class="info">Noch keinen Zugang? <a href="Registrierung.html">Jetzt registrieren</a></p>            <p class="info"><a href="#" onclick="forgotPassword()">Passwort vergessen?</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const users = JSON.parse(localStorage.getItem('users') || '{}');
+
+  if (users[username] && users[username].password === password) {
+    // Login erfolgreich
+    users[username].lastLogin = new Date().toISOString();
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', username);
+    localStorage.setItem('isLoggedIn', 'true');
+
+    // Session setzen
+    sessionStorage.setItem('sessionActive', 'true');
+
+    // Rufe die Ausblendung auf
+    doFadeOut();
+
+  } else {
+    alert('Ungültiger Benutzername oder Passwort');
+  }
+});
+
+// Diese Funktion startet das Fade-Out und verzögert die Weiterleitung
+function doFadeOut() {
+  // Body bekommt die fade-out-Klasse
+  document.body.classList.add('fade-out');
+
+  // Warte die Animationsdauer (hier: 600ms), dann leite weiter:
+  setTimeout(() => {
+    window.location.href = 'Dateipload.html'; 
+  }, 600);
+}
+
+// Optional: Beim Laden die fade-in-Klasse setzen
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('fade-in');
+});
+        function simpleHash(str) {
+    // Sehr einfache Pseudo-Hashfunktion NUR als Beispiel!
+    // Ersetzt jeden Buchstaben durch seinen charCode und summiert.
+    // Richtige Hashing würde eine Kryptolibrary benötigen.
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = (hash + str.charCodeAt(i)) & 0xFFFFFFFF;
+    }
+    return 'hash' + hash; // prefix 'hash' nur um zu zeigen dass es gehasht ist.
+}
+        // Initialisiere Standard-Benutzer, wenn noch keine existieren
+        if (!localStorage.getItem('users')) {
+            users[username] = {
+    password: simpleHash(password),  // Hier jetzt gehashter Wert
+    email: email,
+    company: company,
+    registrationDate: new Date().toISOString(),
+    lastLogin: null
+};
+            localStorage.setItem('users', JSON.stringify(defaultUsers));
+        }
+
+        // Login-Formular Event Listener
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            if (users[username] && users[username].password === simpleHash(password)) {
+                // Login erfolgreich
+                const userData = users[username];
+                userData.lastLogin = new Date().toISOString();
+                users[username] = userData;
+                
+                // Update localStorage
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', username);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Erfolgreiche Anmeldung Nachricht
+                alert('Erfolgreich angemeldet!');
+                
+                // Weiterleitung zum Dashboard
+                window.location.href = 'Dashboard.html';
+            } else {
+                // Login fehlgeschlagen
+                alert('Ungültiger Benutzername oder Passwort');
+            }
+        });
+
+        // Registrierung anzeigen
+        function showRegistration() {
+            const username = prompt('Wählen Sie einen Benutzernamen:');
+            if (!username) return;
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            if (users[username]) {
+                alert('Dieser Benutzername existiert bereits!');
+                return;
+            }
+
+            const password = prompt('Wählen Sie ein Passwort:');
+            if (!password) return;
+
+            const email = prompt('Ihre E-Mail-Adresse:');
+            if (!email) return;
+
+            const company = prompt('Ihr Unternehmensname:');
+            if (!company) return;
+
+            users[username] = {
+                password: password,
+                email: email,
+                company: company,
+                registrationDate: new Date().toISOString(),
+                lastLogin: null
+            };
+
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Registrierung erfolgreich! Sie können sich jetzt anmelden.');
+        }
+
+        // Passwort vergessen Funktion
+        function forgotPassword() {
+            const username = prompt('Geben Sie Ihren Benutzernamen ein:');
+            if (!username) return;
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            if (!users[username]) {
+                alert('Benutzername nicht gefunden!');
+                return;
+            }
+
+            const email = prompt('Geben Sie Ihre E-Mail-Adresse zur Bestätigung ein:');
+            if (email === users[username].email) {
+                const newPassword = Math.random().toString(36).slice(-8);
+                users[username].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+                alert(`Ihr neues temporäres Passwort lautet: ${newPassword}`);
+            } else {
+                alert('Die eingegebene E-Mail-Adresse stimmt nicht überein!');
+            }
+        }
+
+        // Prüfe Login-Status beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'Dashboard.html';
+            }
+        });
+
+        // Füge diesen Code in die login.html
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Setze einen Flag im sessionStorage beim Login
+    sessionStorage.setItem('sessionActive', 'true');
+
+    // Prüfe auf neue Registrierung
+    const newRegistration = sessionStorage.getItem('newRegistration');
+    if (newRegistration) {
+        const { username, password } = JSON.parse(newRegistration);
+        document.getElementById('username').value = username;
+        document.getElementById('password').value = password;
+        sessionStorage.removeItem('newRegistration');
+    }
+});
+
+// Event-Listener für das Schließen des Tabs/Browsers
+window.addEventListener('beforeunload', function() {
+    // Lösche Session-Daten
+    sessionStorage.clear();
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('currentUser');
+});
+
+// Prüfe beim Laden jeder Seite den Login-Status
+function checkLoginStatus() {
+    // Prüfe ob eine aktive Session existiert
+    const isSessionActive = sessionStorage.getItem('sessionActive');
+    
+    if (!isSessionActive) {
+        // Keine aktive Session - User ausloggen
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    }
+}
+
+// Login-Formular Event Listener
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    
+    if (users[username] && users[username].password === password) {
+        // Login erfolgreich
+        users[username].lastLogin = new Date().toISOString();
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUser', username);
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        // Setze Session-Flag
+        sessionStorage.setItem('sessionActive', 'true');
+        
+        window.location.href = 'Dashboard.html';
+    } else {
+        alert('Ungültiger Benutzername oder Passwort');
+    }
+});
+
+// Manuelle Logout-Funktion
+function logout() {
+    sessionStorage.clear();
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+}
+// Beispiel mit fiktiver hashFunktion:
+const hashFunktion = (input) => {
+    // hier müsstest du eine Hashfunktion einbinden oder implementieren
+    return yourHashLib.hash(input);
+}
+
+// Beim Registrieren:
+const password = prompt('Wählen Sie ein Passwort:');
+const hashedPassword = hashFunktion(password);
+users[username].password = hashedPassword;
+
+// Beim Login:
+if (users[username] && users[username].password === hashFunktion(password)) {
+    // Login erfolgreich
+}
+
+    </script>
+    
+</body>
+
+</html>
